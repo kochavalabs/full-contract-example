@@ -1,0 +1,13 @@
+[package]
+name = "contract"
+version = "0.1.0"
+authors = ["Kyle Bartush <kbartush@kochava.com>"]
+edition = "2018"
+
+[dependencies]
+mazzaroth-rs = { git = "ssh://git@github.com/kochavalabs/mazzaroth-rs.git", branch = "rename"}
+mazzaroth-rs-derive = { git = "ssh://git@github.com/kochavalabs/mazzaroth-rs.git", branch = "rename"}
+mazzaroth-xdr = { git = "ssh://git@github.com/kochavalabs/mazzaroth-xdr.git", branch = "develop"}
+
+[lib]
+crate-type = ["cdylib"]
