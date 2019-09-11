@@ -1,10 +1,9 @@
 # Full Contract Example
 
 The repo is meant to be a quick tutorial that will familiarize users with
-contract development. It's meant to give an overview of how to write, deploy and
-update a contract. We will also cover the Mazzaroth CLI tools, XDR code
-generation, writing unit tests and interacting with a mazzaroth node from the
-browser.
+contract development. It's meant to give an overview of how to write, test and
+deploy a contract. We will also cover the Mazzaroth CLI tools, XDR code
+generation and interacting with a mazzaroth node from the browser.
 
 ## Example Contract
 
@@ -26,7 +25,8 @@ be used to generate rust code with the following commands:
 git submodule update --init
 
 # To generate the xdr files and run rustfmt
-cargo run --manifest-path=xdr-codegen/Cargo.toml ./xdr/*.x --language rust | rustfmt > contract/src/xdr.rs
+cargo run --manifest-path=xdr-codegen/Cargo.toml ./xdr/*.x --language rust \
+  | rustfmt > contract/src/xdr.rs
 
 # We'll have to remove the [macro_use] section from the generated rust code.
 # You can run this command or make the changes manually.
@@ -53,7 +53,6 @@ cargo test --features "host-mock"
 cargo test --features "host-mock" -- --test-threads=1
 ```
 
-
 ## Building the Contract
 
 For a contract to be built you can run the following commands:
@@ -78,7 +77,12 @@ be uploaded to our Mazzaroth node to be executed against.
 
 ## Install The Mazzaroth CLI
 
-TODO
+To deploy your built contract to a Mazzaroth node, we will use a the mazzaroth
+cli. You can install the Mazzaroth-CLI with npm.
+
+```bash
+npm install -g mazzaroth-cli
+```
 
 ## Start a Mazzaroth Standalone Node
 
@@ -86,12 +90,101 @@ TODO
 
 ## Deploy a Contract to the Channel
 
-TODO
+Once you have a new Mazzaroth standalone node running, you will need to deploy
+the contract to the node before you can execute any functions on it.
+
+```bash
+# Too see more info about mazzaroth-cli run.
+mazzaroth-cli help
+
+# We'll be running this example with the default private key of all 0s, the
+# account key in the nonce-lookup below is its corresponding public key.
+#
+# You can look up the current nonce for the account with the following
+# command. (Update host appopriately to be your node's ip address)
+mazzaroth-cli nonce-lookup \
+  e0b1fe74117e1b95b608a4f221df314774b20ea66842350d515371c7c6966c6e \
+  --host='http://localhost:8081'
+
+# Then deploy the contract.
+mazzaroth-cli contract-update \
+  contract/target/wasm32-unknown-unknown/release/contract.wasm \
+  --nonce="0" \
+  --host='http://localhost:8081'
+
+# For a readonly call that returns an uniterpreted base64 reault you can call
+# the 'simple' function on the contract.
+mazzaroth-cli readonly-call simple
+```
+
+This covers the basics for deploying your contract. You can read more about the
+Mazzaroth CLI in its [repo](https://github.com/kochavalabs/mazzaroth-cli), for
+the remainder of the tutorial we'll be using the contract-cli.
+
+## Contract CLI
+
+Operations like those above are relatively low level. Many of the results need
+to be interpreted from base64 strings or require multiple calls to complete. For
+example to complete a 'transaction-call', you would need to look up an account
+nonce, make the call, and finally lookup the results after it is executed. An
+example of this being done in node can be seen in the
+[mazzaroth-js](https://github.com/kochavalabs/mazzaroth-js) repo.
+
+This is cumbersome, so we've provided a further abstraction called the contract
+client. This wraps the low level operations and gives the user access to their
+contract through an rpc-like interface. We'll walk through how to drop into the
+contract clients interactive CLI for our example contract.
+
+```bash
+# The contract client requires the ABI json produced from our contract to run
+# properly. Which will drop you into an interactive CLI.
+mazzaroth-cli contract-cli contract/target/json/ExampleContract.json
+Mazz>
+
+# You can see the currently available functions by typing abi
+Mazz> abi
+
+Functions:
+  args(string, string, string) -> uint32
+  complex(Foo, Bar) -> string
+
+ReadOnly Functions:
+  simple() -> string
+
+# And call them
+Mazz> simple()
+Hello World!
+Mazz> args("one", "two", "three")
+11
+Mazz> complex('', '')
+Error: Type not identified: Foo
+    at nodeClient.nonceLookup.then.result
+    at process._tickCallback
+Mazz>
+```
+
+You will notice that we had an error when trying to call our 'complex' function
+from the Mazzaroth interactive CLI. This is because the contract CLI does not
+know how to interpret our custom XDR types, Foo and Bar. We can give it the
+correct information by generating the correct javascript XDR file for it to
+interpret our custom types.
+
+```bash
+# We can generate javascript XDR code with the following command. This is output
+# as ES6 compatible javascript, but must be translated using babel to work
+# correctly with node. We've checked in an already translated xdrTypes.js file
+# to make this step easier. The command for generating JS would be:
+# cargo run --manifest-path=xdr-codegen/Cargo.toml ./xdr/*.x --language js \
+#   --output 'xdrTypes.js'
+
+Mazz> complex('{"status": 1, "one": "one__", "two": "two__", "three": "three__"}', '{ "id": "9000000000000000000000000000000000000000000000000000000000000000" }')
+One: 144
+
+# Alternatively you can give files as arguments.
+Mazz> complex(f:"foo.json", f:"bar.json")
+One: 144
+```
 
 ## Run The Browser Example
-
-TODO
-
-## Update The Contract
 
 TODO
