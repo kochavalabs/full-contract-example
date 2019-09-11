@@ -101,7 +101,7 @@ mazzaroth-cli help
 # account key in the nonce-lookup below is its corresponding public key.
 #
 # You can look up the current nonce for the account with the following
-# command. (Update host appopriately to be your node's ip address)
+# command. (Update host appropriately to be your node's ip address)
 mazzaroth-cli nonce-lookup \
   e0b1fe74117e1b95b608a4f221df314774b20ea66842350d515371c7c6966c6e \
   --host='http://localhost:8081'
@@ -112,7 +112,7 @@ mazzaroth-cli contract-update \
   --nonce="0" \
   --host='http://localhost:8081'
 
-# For a readonly call that returns an uniterpreted base64 result you can call
+# For a readonly call that returns an uninterpreted base64 result you can call
 # the 'simple' function on the contract.
 # Note that no nonce is required for the readonly call.
 mazzaroth-cli readonly-call simple  --host='http://localhost:8081'
@@ -188,10 +188,10 @@ One: 144
 
 ## Run The Browser Example
 
-We've put together an example of calling a mazzaroth node from the browser under
-the [browser/](https://github.com/kochavalabs/full-contract-example/tree/master/browser)
-directory. The example simply constructs a node-client and contract-client then
-makes a call to the mazzaroth node to call the 'simple' function on our
+We've put together an example calling a Mazzaroth node from the browser. It is
+found in the [browser/](https://github.com/kochavalabs/full-contract-example/tree/master/browser)
+directory. This example simply constructs a node-client and contract-client then
+makes a call to the Mazzaroth node to call the 'simple' function on our
 contract. This is done in the
 [HelloWorld.vue](https://github.com/kochavalabs/full-contract-example/tree/master/browser/src/components/HelloWorld.vue)
 file. The results are then displayed.
@@ -207,6 +207,6 @@ cd browser
 npm install
 
 # As long as a node is running, the result of the call to simple should display
-# on the page -> 'Hellow World!'
+# on the page -> 'Hello World!'
 npm run serve
 ```
