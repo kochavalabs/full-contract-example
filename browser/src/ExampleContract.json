@@ -1,0 +1,65 @@
+[
+  {
+    "type": "readonly",
+    "name": "simple",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "returnValue0",
+        "type": "string",
+        "codec": "bytes"
+      }
+    ]
+  },
+  {
+    "type": "function",
+    "name": "args",
+    "inputs": [
+      {
+        "name": "one",
+        "type": "string",
+        "codec": "bytes"
+      },
+      {
+        "name": "two",
+        "type": "string",
+        "codec": "bytes"
+      },
+      {
+        "name": "three",
+        "type": "string",
+        "codec": "bytes"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "returnValue0",
+        "type": "uint32",
+        "codec": "bytes"
+      }
+    ]
+  },
+  {
+    "type": "function",
+    "name": "complex",
+    "inputs": [
+      {
+        "name": "foo_arg",
+        "type": "Foo",
+        "codec": "bytes"
+      },
+      {
+        "name": "bar_arg",
+        "type": "Bar",
+        "codec": "bytes"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "returnValue0",
+        "type": "string",
+        "codec": "bytes"
+      }
+    ]
+  }
+]

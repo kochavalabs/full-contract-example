@@ -188,4 +188,25 @@ One: 144
 
 ## Run The Browser Example
 
-TODO
+We've put together an example of calling a mazzaroth node from the browser under
+the [browser/](https://github.com/kochavalabs/full-contract-example/tree/master/browser)
+directory. The example simply constructs a node-client and contract-client then
+makes a call to the mazzaroth node to call the 'simple' function on our
+contract. This is done in the
+[HelloWorld.vue](https://github.com/kochavalabs/full-contract-example/tree/master/browser/src/components/HelloWorld.vue)
+file. The results are then displayed.
+
+To run:
+
+```bash
+# From the repo root directory
+cd browser
+
+# To install the node dependencies during development we ran:
+# npm install --save mazzaroth-js
+npm install
+
+# As long as a node is running, the result of the call to simple should display
+# on the page -> 'Hellow World!'
+npm run serve
+```
