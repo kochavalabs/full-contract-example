@@ -70,7 +70,7 @@ cargo +nightly build --release --target wasm32-unknown-unknown
 
 This will output a couple of files that are worth noting. First is located at
 contract/target/json/ExampleContract.json, and is a json file that contains the
-contract ABI (a description of the functions in the contract). This will be used
+contract abi (a description of the functions in the contract). This will be used
 when we interact with some of the CLI tools later in the tutorial. The second
 file that is important is the contract wasm output located at
 contract/target/wasm32-unknown-unknown/release/contract.wasm. This is what will

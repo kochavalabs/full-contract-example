@@ -2,22 +2,13 @@
 namespace example
 {
 
-  enum FooStatus {
-    Zero = 0,
-    One = 1,
-    Two = 2,
-    Three = 3,
-  };
+  typedef opaque ID[32];
 
 
-  struct Foo {
-    FooStatus status;
+  struct Bar {
 
-    string one<256>;
+    ID id;
 
-    string two<256>;
-
-    string three<256>;
   };
 
 }
