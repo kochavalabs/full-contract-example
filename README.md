@@ -3,11 +3,11 @@
 The repo is meant to be a quick tutorial that will familiarize users with
 contract development. It's meant to give an overview of how to write, test and
 deploy a contract. We will also cover the Mazzaroth CLI tools, XDR code
-generation and interacting with a mazzaroth node from the browser.
+generation and interacting with a Mazzaroth node from the browser.
 
 ## Example Contract
 
-An example contract for this tutorial is located in the [contract/](https://github.com/kochavalabs/full-contract-example/tree/develop/contract)
+An example contract for this tutorial is located in the [contract/](https://github.com/kochavalabs/full-contract-example/tree/master/contract)
 directory.
 
 ## Generating XDR Objects
@@ -77,7 +77,7 @@ be uploaded to our Mazzaroth node to be executed against.
 
 ## Install The Mazzaroth CLI
 
-To deploy your built contract to a Mazzaroth node, we will use a the mazzaroth
+Deploying your built contract to a Mazzaroth node will require the mazzaroth
 cli. You can install the Mazzaroth-CLI with npm.
 
 ```bash
@@ -94,7 +94,7 @@ Once you have a new Mazzaroth standalone node running, you will need to deploy
 the contract to the node before you can execute any functions on it.
 
 ```bash
-# Too see more info about mazzaroth-cli run.
+# To see more info about mazzaroth-cli run.
 mazzaroth-cli help
 
 # We'll be running this example with the default private key of all 0s, the
@@ -112,9 +112,10 @@ mazzaroth-cli contract-update \
   --nonce="0" \
   --host='http://localhost:8081'
 
-# For a readonly call that returns an uniterpreted base64 reault you can call
+# For a readonly call that returns an uniterpreted base64 result you can call
 # the 'simple' function on the contract.
-mazzaroth-cli readonly-call simple
+# Note that no nonce is required for the readonly call.
+mazzaroth-cli readonly-call simple  --host='http://localhost:8081'
 ```
 
 This covers the basics for deploying your contract. You can read more about the
@@ -126,8 +127,8 @@ the remainder of the tutorial we'll be using the contract-cli.
 Operations like those above are relatively low level. Many of the results need
 to be interpreted from base64 strings or require multiple calls to complete. For
 example to complete a 'transaction-call', you would need to look up an account
-nonce, make the call, and finally lookup the results after it is executed. An
-example of this being done in node can be seen in the
+nonce, make the call, and finally lookup the results after execution. An example
+of this being done (using  node.js) can be seen in the
 [mazzaroth-js](https://github.com/kochavalabs/mazzaroth-js) repo.
 
 This is cumbersome, so we've provided a further abstraction called the contract
@@ -180,7 +181,7 @@ interpret our custom types.
 Mazz> complex('{"status": 1, "one": "one__", "two": "two__", "three": "three__"}', '{ "id": "9000000000000000000000000000000000000000000000000000000000000000" }')
 One: 144
 
-# Alternatively you can give files as arguments.
+# Alternatively, you can give files as arguments.
 Mazz> complex(f:"foo.json", f:"bar.json")
 One: 144
 ```
