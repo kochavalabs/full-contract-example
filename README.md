@@ -43,14 +43,14 @@ feature to your Cargo.toml and execute test as follows.
 
 ```bash
 # Add these feature to your Cargo.toml
-# [features]
-# host-mock = []
+# [dev-dependencies]
+# mazzaroth-rs = { git = "ssh://git@github.com/kochavalabs/mazzaroth-rs.git", features=['host-mock'], branch = "develop" }
 
-cargo test --features "host-mock"
+cargo test
 
 # If using host functions in your contract it is best to limit the tests to
 # one thread:
-cargo test --features "host-mock" -- --test-threads=1
+cargo test -- --test-threads=1
 ```
 
 ## Building the Contract
