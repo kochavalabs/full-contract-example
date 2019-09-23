@@ -42,8 +42,13 @@ mazzaroth-rs behind the rust host-mock feature. You can simply add the following
 feature to your Cargo.toml and execute test as follows.
 
 ```bash
-# Add these feature to your Cargo.toml
-# [dev-dependencies]
+# Add this feature to your Cargo.toml for non-wasm builds to allow for running
+# unit tests locally.
+#
+# [target.'cfg(target_arch = "wasm32")'.dependencies]
+# mazzaroth-rs = { git = "ssh://git@github.com/kochavalabs/mazzaroth-rs.git", branch = "develop"}
+#
+# [target.'cfg(target_arch = "x86_64")'.dependencies]
 # mazzaroth-rs = { git = "ssh://git@github.com/kochavalabs/mazzaroth-rs.git", features=['host-mock'], branch = "develop" }
 
 cargo test
