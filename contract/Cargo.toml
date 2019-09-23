@@ -8,7 +8,7 @@ edition = "2018"
 mazzaroth-rs = { git = "ssh://git@github.com/kochavalabs/mazzaroth-rs.git", branch = "develop"}
 
 [target.'cfg(target_arch = "x86_64")'.dependencies]
-mazzaroth-rs = { git = "ssh://git@github.com/kochavalabs/mazzaroth-rs.git", branch = "develop"}
+mazzaroth-rs = { git = "ssh://git@github.com/kochavalabs/mazzaroth-rs.git", features=['host-mock'], branch = "develop" }
 
 [dependencies]
 mazzaroth-rs-derive = { git = "ssh://git@github.com/kochavalabs/mazzaroth-rs.git", branch = "develop"}
