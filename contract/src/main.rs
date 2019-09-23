@@ -11,8 +11,7 @@ use mazzaroth_rs::ContractInterface;
 use mazzaroth_rs_derive::mazzaroth_abi;
 use xdr::*;
 
-#[no_mangle]
-pub fn ct_main() {
+pub fn main() {
     std::panic::set_hook(Box::new(mazzaroth_rs::external::errors::hook));
 
     // Creates a new instance of the ABI generated around the Contract

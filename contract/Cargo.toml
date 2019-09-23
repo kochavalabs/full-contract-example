@@ -11,8 +11,5 @@ xdr-rs-serialize = { git = "ssh://git@github.com/kochavalabs/xdr-rs-serialize.gi
 xdr-rs-serialize-derive = { git = "ssh://git@github.com/kochavalabs/xdr-rs-serialize.git", branch = "develop"}
 mazzaroth-xdr = { git = "ssh://git@github.com/kochavalabs/mazzaroth-xdr.git", branch = "develop"}
 
-[lib]
-crate-type = ["cdylib"]
-
-[features]
-host-mock = []
+[dev-dependencies]
+mazzaroth-rs = { git = "ssh://git@github.com/kochavalabs/mazzaroth-rs.git", features=['host-mock'], branch = "develop" }
