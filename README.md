@@ -38,8 +38,8 @@ sed -i '/macro_use/d' contract/src/xdr.rs
 With a few modifications you can write unit tests for your contract using the
 standard rust testing library. The one thing that slightly complicates things
 is our use of host functions within the contract. These are mocked out in
-mazzaroth-rs behind the rust host-mock feature. You can simply add the following
-feature to your Cargo.toml and execute test as follows.
+mazzaroth-rs behind the rust host-mock feature. You can specify using the
+host-mock feature for the mazzaroth-rs library through the command line.
 
 ```bash
 # Unit testing requires enabling the host-mock feature for the mazzaroth-rs
