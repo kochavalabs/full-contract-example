@@ -6,7 +6,9 @@ extern crate xdr_rs_serialize_derive;
 
 pub mod xdr;
 
-use mazzaroth_rs::external::transaction;
+use xdr_rs_serialize::ser::XDROut;
+
+use mazzaroth_rs::external::{sql, transaction};
 use mazzaroth_rs::ContractInterface;
 use mazzaroth_rs_derive::mazzaroth_abi;
 use xdr::*;
@@ -28,6 +30,7 @@ pub fn main() {
 
 #[mazzaroth_abi(ExampleCT)]
 pub trait ExampleContract {
+    fn setup(&mut self) -> bool;
 
     #[readonly]
     fn simple(&mut self) -> String;
@@ -35,11 +38,26 @@ pub trait ExampleContract {
     fn args(&mut self, one: String, two: String, three: String) -> u32;
 
     fn complex(&mut self, foo_arg: Foo, bar_arg: Bar) -> String;
+
+    fn insert_foo(&mut self, foo: Foo) -> Vec<i32>;
+
+    fn query_foo(&mut self, where_clause: String) -> Vec<Foo>;
 }
 
 pub struct Example {}
 
 impl ExampleContract for Example {
+    fn setup(&mut self) -> bool {
+        let tables = vec!["foo", "bar"];
+        for table in &tables {
+            match sql::exec(format!("CREATE TABLE {};", table)) {
+                Some(_) => panic!(format!("Error creating table {}", table)),
+                None => {}
+            };
+        }
+        return true;
+    }
+
     fn simple(&mut self) -> String {
         "Hello World!".to_string()
     }
@@ -54,6 +72,28 @@ impl ExampleContract for Example {
             FooStatus::One => format!("One: {:?}", bar_arg.id.t[0]),
             FooStatus::Two => format!("Two: {:?}", bar_arg.id.t[0]),
             FooStatus::Three => format!("Three: {:?}", bar_arg.id.t[0]),
+        }
+    }
+
+    fn insert_foo(&mut self, foo: Foo) -> Vec<i32> {
+        let mut json_out: Vec<u8> = Vec::new();
+        foo.write_json(&mut json_out).unwrap();
+        let query = std::str::from_utf8(&json_out).unwrap().to_string();
+        sql::insert("foo".to_string(), query).unwrap();
+        return vec![];
+    }
+
+    fn query_foo(&mut self, where_clause: String) -> Vec<Foo> {
+        let mut query = format!("SELECT * FROM foo");
+        if where_clause != "".to_string() {
+            query = format!("{} WHERE {}", query, where_clause);
+        }
+        match sql::exec(query) {
+            Some(result) => xdr_rs_serialize::de::read_json_string(
+                std::str::from_utf8(&result).unwrap().to_string(),
+            )
+            .unwrap(),
+            None => vec![],
         }
     }
 }
