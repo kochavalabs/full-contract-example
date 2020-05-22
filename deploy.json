@@ -8,7 +8,7 @@
     "node-addr": "http://localhost:8080",
     "on-behalof-of": "",
     "owner": "3b6a27bcceb6a42d62a3a8d02a6f0d73653215771de243a63ac048a18b59da29",
-    "test-sets": {
+    "init-transactions": {
         "products-add-get": [
             {
                 "args": [],
