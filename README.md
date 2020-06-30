@@ -84,9 +84,33 @@ npm install -g mazzaroth-cli
 
 ## Start a Mazzaroth Standalone Node
 
-TODO
+Mazzaroth is provided as an image on [Docker Hub](https://hub.docker.com/r/kochavalabs/mazzaroth).
+
+To run a standalone node with port 8081 exposed for http access
+use the following command:
+
+```Bash
+docker run -p 8081:8081 kochavalabs/mazzaroth start standalone
+```
 
 ## Deploy a Contract to the Channel
+
+There are a few steps required to deploy a contract to a new
+Mazzaroth node.  To help with these steps we have included a
+deploy command that takes a deploy.json config.
+
+An example deploy.json is included in this repository.  Simply
+run the following command to automatically deploy the contract
+to a node running on localhost with port 8081.
+
+```Bash
+mazzaroth-cli deploy deploy.json
+```
+
+If you would like to run each step manually you can follow the steps below
+for a [manual deploy](#Manual-Deploy) instead.
+
+### Manual Deploy
 
 Once you have a new Mazzaroth standalone node running, you will need to deploy
 the contract to the node before you can execute any functions on it.
@@ -113,7 +137,7 @@ mazzaroth-cli contract-update \
 # For a readonly call that returns an uninterpreted base64 result you can call
 # the 'simple' function on the contract.
 # Note that no nonce is required for the readonly call.
-mazzaroth-cli readonly-call simple  --host='http://localhost:8081'
+mazzaroth-cli readonly-call simple --host='http://localhost:8081'
 ```
 
 This covers the basics for deploying your contract. You can read more about the
@@ -126,7 +150,7 @@ Operations like those above are relatively low level. Many of the results need
 to be interpreted from base64 strings or require multiple calls to complete. For
 example to complete a 'transaction-call', you would need to look up an account
 nonce, make the call, and finally lookup the results after execution. An example
-of this being done (using  node.js) can be seen in the
+of this being done (using node.js) can be seen in the
 [mazzaroth-js](https://github.com/kochavalabs/mazzaroth-js) repo.
 
 This is cumbersome, so we've provided a further abstraction called the contract
