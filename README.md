@@ -18,19 +18,38 @@ method signatures. The method that does this in the example contract is the
 they should be generated from XDR language files.
 
 For this contract we've defined our XDR under the xdr/ directory and they can
-be used to generate rust code with the following commands:
+be used to generate rust code with the [xdr-codegen](https://crates.io/crates/xdr-codegen)
+tool.
 
-```bash
-# We've included a git submodule for the code generation tool, xdr-codegen
-git submodule update --init
+First install or update xdr-codegen
 
-# To generate the xdr files and run rustfmt
-cargo run --manifest-path=xdr-codegen/Cargo.toml ./xdr/*.x --language rust \
-  | rustfmt > contract/src/xdr.rs
+```Bash
+cargo install xdr-codegen
+```
 
-# We'll have to remove the [macro_use] section from the generated rust code.
-# You can run this command or make the changes manually.
-sed -i '/macro_use/d' contract/src/xdr.rs
+Then run the xdr-codegen command to generate the xdrTypes.js file:
+
+```Bash
+xdr-codegen ./xdr/*.x --language rust | rustfmt > contract/src/xdr.rs
+```
+
+We'll have to remove the [macro_use] section from the generated rust code.
+Since the xdr.rs file is pulled into the contract as a module it cannot
+contain the macro use line which is already present for the `xdr_rs_serialize_derive`
+extern crate in main.rs.
+You can run this command or make the changes manually.
+
+```Bash
+sed -i '' -e '/macro_use/d' contract/src/xdr.rs
+```
+
+If you want to use the Mazzaroth-CLI or JavaScript to interact with
+the contract you will also need the JavaScript generated file.  This
+has been provided at xdrTypes.js, but can also be generated with the
+command below.
+
+```Bash
+xdr-codegen ./xdr/*.x --language js --output 'xdrTypes.js' && babel xdrTypes.js -o xdrTypes.js
 ```
 
 ## Writing Unit Tests
@@ -134,7 +153,7 @@ mazzaroth-cli contract-update \
   --nonce="0" \
   --host='http://localhost:8081'
 
-# For a readonly call that returns an uninterpreted base64 result you can call
+# For a readonly call that returns a JSON result you can call
 # the 'simple' function on the contract.
 # Note that no nonce is required for the readonly call.
 mazzaroth-cli readonly-call simple --host='http://localhost:8081'
@@ -161,7 +180,7 @@ contract clients interactive CLI for our example contract.
 ```bash
 # The contract client requires the ABI json produced from our contract to run
 # properly. Which will drop you into an interactive CLI.
-mazzaroth-cli contract-cli contract/target/json/ExampleContract.json
+mazzaroth-cli contract-cli contract/target/json/ExampleContract.json -x xdrTypes.js
 Mazz>
 
 # You can see the currently available functions by typing abi
