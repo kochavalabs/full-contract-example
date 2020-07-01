@@ -1,0 +1,23 @@
+{
+  "name": "full-contract-example",
+  "version": "1.0.0",
+  "description": "The repo is meant to be a quick tutorial that will familiarize users with contract development. It's meant to give an overview of how to write, test and deploy a contract. We will also cover the Mazzaroth CLI tools, XDR code generation and interacting with a Mazzaroth node from the browser.",
+  "devDependencies": {
+    "@babel/cli": "^7.10.4",
+    "@babel/core": "^7.10.4",
+    "babel-preset-env": "^1.7.0"
+  },
+  "scripts": {
+    "translate": "babel xdrTypes.js -o xdrTypes.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kochavalabs/full-contract-example.git"
+  },
+  "author": "Kochavalabs",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kochavalabs/full-contract-example/issues"
+  },
+  "homepage": "https://github.com/kochavalabs/full-contract-example#readme"
+}

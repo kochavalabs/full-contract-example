@@ -52,6 +52,16 @@ command below.
 xdr-codegen ./xdr/*.x --language js --output 'xdrTypes.js' && babel xdrTypes.js -o xdrTypes.js
 ```
 
+This is output as ES6 compatible javascript, but must be translated using babel
+to work correctly with node.  A script has been provided to translate xdrTypes.js
+and can be used by running the following commands:
+
+```Bash
+npm install
+
+npm run translate
+```
+
 ## Writing Unit Tests
 
 With a few modifications you can write unit tests for your contract using the
@@ -212,13 +222,6 @@ correct information by generating the correct javascript XDR file for it to
 interpret our custom types.
 
 ```bash
-# We can generate javascript XDR code with the following command. This is output
-# as ES6 compatible javascript, but must be translated using babel to work
-# correctly with node. We've checked in an already translated xdrTypes.js file
-# to make this step easier. The command for generating JS would be:
-# cargo run --manifest-path=xdr-codegen/Cargo.toml ./xdr/*.x --language js \
-#   --output 'xdrTypes.js'
-
 Mazz> complex('{"status": 1, "one": "one__", "two": "two__", "three": "three__"}', '{ "id": "9000000000000000000000000000000000000000000000000000000000000000" }')
 One: 144
 
