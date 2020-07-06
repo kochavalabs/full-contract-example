@@ -49,7 +49,7 @@ has been provided at xdrTypes.js, but can also be generated with the
 command below.
 
 ```Bash
-xdr-codegen ./xdr/*.x --language js --output 'xdrTypes.js' && babel xdrTypes.js -o xdrTypes.js
+xdr-codegen ./xdr/*.x --language js --output 'xdrTypes.js'
 ```
 
 This is output as ES6 compatible javascript, but must be translated using babel

@@ -8,7 +8,7 @@
     "babel-preset-env": "^1.7.0"
   },
   "scripts": {
-    "translate": "babel xdrTypes.js -o xdrTypes.js",
+    "translate": "./node_modules/.bin/babel xdrTypes.js -o xdrTypes.js",
     "test": "./node_modules/.bin/mazzaroth-it test --config tests"
   },
   "repository": {
