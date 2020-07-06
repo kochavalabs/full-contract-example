@@ -159,10 +159,7 @@ to a node running on localhost with port 8081.
 mazzaroth-cli deploy deploy.json
 ```
 
-If you would like to run each step manually you can follow the steps below
-for a [manual deploy](#Manual-Deploy) instead.
-
-### Manual Deploy
+### Manual Transaction Execution
 
 Once you have a new Mazzaroth standalone node running, you will need to deploy
 the contract to the node before you can execute any functions on it.
@@ -177,23 +174,25 @@ mazzaroth-cli help
 # You can look up the current nonce for the account with the following
 # command. (Update host appropriately to be your node's ip address)
 mazzaroth-cli nonce-lookup \
-  e0b1fe74117e1b95b608a4f221df314774b20ea66842350d515371c7c6966c6e \
-  --host='http://localhost:8081'
-
-# Then deploy the contract.
-mazzaroth-cli contract-update \
-  contract/target/wasm32-unknown-unknown/release/contract.wasm \
-  --nonce="0" \
+  3b6a27bcceb6a42d62a3a8d02a6f0d73653215771de243a63ac048a18b59da29 \
   --host='http://localhost:8081'
 
 # For a readonly call that returns a JSON result you can call
 # the 'simple' function on the contract.
 # Note that no nonce is required for the readonly call.
 mazzaroth-cli readonly-call simple --host='http://localhost:8081'
+
+# For a non-readonly Transaction Execution make sure to set the nonce from the previous lookup
+mazzaroth-cli transaction-call args -a "one" -a "two" -a "three" --nonce 9
+
+# Provide the output transaction id from the previous command to a
+# receipt lookup to get the result of the transaction execution
+mazzaroth-cli receipt-lookup d82feb998c035949384ec058399d8d5697bcce82d7d2eeb8dd49be6f1b6f0c9b
 ```
 
-This covers the basics for deploying your contract. You can read more about the
-Mazzaroth CLI in its [repo](https://github.com/kochavalabs/mazzaroth-cli), for
+This covers the basics for executing transactions against your contract.
+You can read more about the Mazzaroth CLI in its
+[repo](https://github.com/kochavalabs/mazzaroth-cli). For
 the remainder of the tutorial we'll be using the contract-cli.
 
 ## Contract CLI
