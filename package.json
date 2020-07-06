@@ -9,7 +9,7 @@
   },
   "scripts": {
     "translate": "babel xdrTypes.js -o xdrTypes.js",
-    "test": "mazzaroth-it test --config tests"
+    "test": "./node_modules/.bin/mazzaroth-it test --config tests"
   },
   "repository": {
     "type": "git",
