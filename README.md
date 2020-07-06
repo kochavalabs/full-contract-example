@@ -102,6 +102,21 @@ file that is important is the contract wasm output located at
 contract/target/wasm32-unknown-unknown/release/contract.wasm. This is what will
 be uploaded to our Mazzaroth node to be executed against.
 
+## Writing Integration Tests
+
+Although some of a contract's logic can be tested using standard rust unit tests,
+integration tests are necessary for testing host functions and other higher level
+logic. [Mazzaroth-it](https://github.com/kochavalabs/mazzaroth-it) is a relatively
+straight forward node script that helps by automating some of the repetitive
+tasks related with running integration tests.
+
+Example integration tests have been added to the `/tests` directory and can be run
+with Mazzaroth-it.  For convenience Mazzaroth-it has been included as a node dependency
+and all tests can be run with the `npm run test` command.
+
+Visit the [Mazzaroth-it](https://github.com/kochavalabs/mazzaroth-it) repository
+for more details on how to setup test config files.
+
 ## Install The Mazzaroth CLI
 
 Deploying your built contract to a Mazzaroth node will require the mazzaroth

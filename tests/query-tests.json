@@ -1,0 +1,75 @@
+{
+    "warmup-ms": 2000,
+    "deploy-ms": 1000,
+    "abi": {
+        "type": "file",
+        "value": "./contract/target/json/ExampleContract.json"
+    },
+    "channel-id": "",
+    "contract": "./contract/target/wasm32-unknown-unknown/release/contract.wasm",
+    "node-addr": "",
+    "owner": "",
+    "test-sets": {
+        "query-tests": [
+            {
+                "args": [],
+                "function_name": "setup",
+                "sender": "",
+                "result": true
+            },
+            {
+                "args": ["{\"status\": 1, \"one\": \"foo\", \"two\": \"hello\", \"three\": \"world!\"}"],
+                "function_name": "insert_foo",
+                "sender": "",
+                "result": []
+            },
+            {
+                "args": ["{\"status\": 2, \"one\": \"bar\", \"two\": \"hello\", \"three\": \"world!\"}"],
+                "function_name": "insert_foo",
+                "sender": "",
+                "result": []
+            },
+            {
+                "args": ["{\"status\": 3, \"one\": \"baz\", \"two\": \"howdy\", \"three\": \"world!\"}"],
+                "function_name": "insert_foo",
+                "sender": "",
+                "result": []
+            },
+            {
+                "args": ["status = 0"],
+                "function_name": "query_foo",
+                "sender": "",
+                "result": []
+            },
+            {
+                "args": ["status = 2"],
+                "function_name": "query_foo",
+                "sender": "",
+                "result": [ { "status": 2, "one": "bar", "two": "hello", "three": "world!" } ]
+            },
+            {
+                "args": ["one = 'foo'"],
+                "function_name": "query_foo",
+                "sender": "",
+                "result": [ { "status": 1, "one": "foo", "two": "hello", "three": "world!" } ]
+            },
+            {
+                "args": ["two = 'hello'"],
+                "function_name": "query_foo",
+                "sender": "",
+                "result": [ { "status": 1, "one": "foo", "two": "hello", "three": "world!" }, { "status": 2, "one": "bar", "two": "hello", "three": "world!" } ]
+            },
+            {
+                "args": ["three = 'world!'"],
+                "function_name": "query_foo",
+                "sender": "",
+                "result": [ 
+                    { "status": 1, "one": "foo", "two": "hello", "three": "world!" }, 
+                    { "status": 2, "one": "bar", "two": "hello", "three": "world!" }, 
+                    { "status": 3, "one": "baz", "two": "howdy", "three": "world!" }
+                ]
+            }
+        ]
+    },
+    "xdr-types": "./xdrTypes.js"
+}
