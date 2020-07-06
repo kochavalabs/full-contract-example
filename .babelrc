@@ -1,11 +1,11 @@
 {
-    "env": {},
-    "ignore": [],
-    "plugins": [],
-    "presets": [
-      ["env",
-      {
-        "targets": {"browsers": "> 5%"}
-      }]
-    ]
-  }
+  "env": {},
+  "ignore": [],
+  "plugins": [],
+  "presets": [
+    ["env",
+    {
+      "targets": {"browsers": "> 5%"}
+    }]
+  ]
+}
