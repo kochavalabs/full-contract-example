@@ -8,8 +8,7 @@
     "babel-preset-env": "^1.7.0"
   },
   "scripts": {
-    "translate": "./node_modules/.bin/babel xdrTypes.js -o xdrTypes.js",
-    "test": "./node_modules/.bin/mazzaroth-it test --config tests"
+    "translate": "./node_modules/.bin/babel xdrTypes-es6.js -o xdrTypes.js"
   },
   "repository": {
     "type": "git",
@@ -21,7 +20,5 @@
     "url": "https://github.com/kochavalabs/full-contract-example/issues"
   },
   "homepage": "https://github.com/kochavalabs/full-contract-example#readme",
-  "dependencies": {
-    "mazzaroth-it": "^0.2.1"
-  }
+  "dependencies": {}
 }

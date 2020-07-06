@@ -27,7 +27,7 @@ First install or update xdr-codegen
 cargo install xdr-codegen
 ```
 
-Then run the xdr-codegen command to generate the xdrTypes.js file:
+Then run the xdr-codegen command to generate the xdr rust file:
 
 ```Bash
 xdr-codegen ./xdr/*.x --language rust | rustfmt > contract/src/xdr.rs
@@ -49,7 +49,7 @@ has been provided at xdrTypes.js, but can also be generated with the
 command below.
 
 ```Bash
-xdr-codegen ./xdr/*.x --language js --output 'xdrTypes.js'
+xdr-codegen ./xdr/*.x --language js --output 'xdrTypes-es6.js'
 ```
 
 This is output as ES6 compatible javascript, but must be translated using babel
@@ -86,12 +86,12 @@ For a contract to be built you can run the following commands:
 
 ```bash
 # You must install the latest rust wasm tools
-rustup toolchain install nightly
+rustup toolchain install
 rustup update
-rustup target add wasm32-unknown-unknown --toolchain nightly
+rustup target add wasm32-unknown-unknown
 
 # Then build the contract.
-cargo +nightly build --release --target wasm32-unknown-unknown
+cargo build --release --target wasm32-unknown-unknown
 ```
 
 This will output a couple of files that are worth noting. First is located at
@@ -111,8 +111,16 @@ straight forward node script that helps by automating some of the repetitive
 tasks related with running integration tests.
 
 Example integration tests have been added to the `/tests` directory and can be run
-with Mazzaroth-it.  For convenience Mazzaroth-it has been included as a node dependency
-and all tests can be run with the `npm run test` command.
+with Mazzaroth-it.
+
+Run the following commands to install and run the integration tests:
+
+```Bash
+npm install -g mazzaroth-it
+
+
+mazzaroth-it test --config tests
+```
 
 Visit the [Mazzaroth-it](https://github.com/kochavalabs/mazzaroth-it) repository
 for more details on how to setup test config files.
