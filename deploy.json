@@ -4,8 +4,9 @@
         "value": "./contract/target/json/ExampleContract.json"
     },
     "channel-id": "0000000000000000000000000000000000000000000000000000000000000000",
+    "channel-name": "Example Channel",
     "contract": "./contract/target/wasm32-unknown-unknown/release/contract.wasm",
-    "node-addr": "http://localhost:8081",
+    "host": "http://localhost:8081",
     "on-behalof-of": "",
     "owner": "3b6a27bcceb6a42d62a3a8d02a6f0d73653215771de243a63ac048a18b59da29",
     "init-transactions": {
