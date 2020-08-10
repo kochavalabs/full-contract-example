@@ -45,21 +45,10 @@ sed -i '' -e '/macro_use/d' contract/src/xdr.rs
 
 If you want to use the Mazzaroth-CLI or JavaScript to interact with
 the contract you will also need the JavaScript generated file.  This
-has been provided at xdrTypes.js, but can also be generated with the
-command below.
+can be generated with the command below.
 
 ```Bash
-xdr-codegen ./xdr/*.x --language js --output 'xdrTypes-es6.js'
-```
-
-This is output as ES6 compatible javascript, but must be translated using babel
-to work correctly with node.  A script has been provided to translate xdrTypes.js
-and can be used by running the following commands:
-
-```Bash
-npm install
-
-npm run translate
+xdr-codegen ./xdr/*.x --language commonjs --output 'xdrTypes.js'
 ```
 
 ## Writing Unit Tests
