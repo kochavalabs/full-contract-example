@@ -208,8 +208,11 @@ Mazz>
 Mazz> abi
 
 Functions:
+  setup() -> bool
   args(string, string, string) -> uint32
   complex(Foo, Bar) -> string
+  insert_foo(Foo) -> int32[]
+  query_foo(string) -> Foo[]
 
 ReadOnly Functions:
   simple() -> string
@@ -219,18 +222,13 @@ Mazz> simple()
 Hello World!
 Mazz> args("one", "two", "three")
 11
-Mazz> complex('', '')
-Error: Type not identified: Foo
-    at nodeClient.nonceLookup.then.result
-    at process._tickCallback
-Mazz>
 ```
 
-You will notice that we had an error when trying to call our 'complex' function
-from the Mazzaroth interactive CLI. This is because the contract CLI does not
-know how to interpret our custom XDR types, Foo and Bar. We can give it the
-correct information by generating the correct javascript XDR file for it to
-interpret our custom types.
+You will notice that some functions take custom objects. If you did not provide
+the `-x xdrTypes.js` argument in the contract-cli command the
+contract CLI will not know how to interpret our custom XDR types, Foo and Bar.
+If you did provide the javascript XDR file then you should be able to call those
+functions by passing in a JSON version of the objects.
 
 ```bash
 Mazz> complex('{"status": 1, "one": "one__", "two": "two__", "three": "three__"}', '{ "id": "9000000000000000000000000000000000000000000000000000000000000000" }')
