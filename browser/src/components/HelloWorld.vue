@@ -18,7 +18,7 @@ export default {
   }),
 
   methods: {
-    execute: function() {
+    execute() {
       // Hard coding the channel, privKey
       const accountPrivKey = "0".repeat(64);
       const channelID = "0".repeat(64);
