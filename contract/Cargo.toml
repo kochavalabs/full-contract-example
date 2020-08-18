@@ -5,9 +5,9 @@ authors = ["Kyle Bartush <kbartush@kochava.com>"]
 edition = "2018"
 
 [dependencies]
-mazzaroth-rs = { git = "https://git@github.com/kochavalabs/mazzaroth-rs.git", branch = "develop"}
-mazzaroth-rs-derive = { git = "https://git@github.com/kochavalabs/mazzaroth-rs.git", branch = "develop"}
-xdr-rs-serialize = { git = "https://git@github.com/kochavalabs/xdr-rs-serialize.git", branch = "develop"}
-xdr-rs-serialize-derive = { git = "https://git@github.com/kochavalabs/xdr-rs-serialize.git", branch = "develop"}
-mazzaroth-xdr = { git = "https://git@github.com/kochavalabs/mazzaroth-xdr.git", branch = "develop"}
+mazzaroth-rs = "0.2.1"
+mazzaroth-rs-derive = "0.2.1"
+xdr-rs-serialize = "0.2.3"
+xdr-rs-serialize-derive = "0.2.3"
+mazzaroth-xdr = "0.2.5"
 json = "0.12.0"
