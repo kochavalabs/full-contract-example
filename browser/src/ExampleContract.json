@@ -1,5 +1,17 @@
 [
   {
+    "type": "function",
+    "name": "setup",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "returnValue0",
+        "type": "bool",
+        "codec": "bytes"
+      }
+    ]
+  },
+  {
     "type": "readonly",
     "name": "simple",
     "inputs": [],
@@ -58,6 +70,42 @@
       {
         "name": "returnValue0",
         "type": "string",
+        "codec": "bytes"
+      }
+    ]
+  },
+  {
+    "type": "function",
+    "name": "insert_foo",
+    "inputs": [
+      {
+        "name": "foo",
+        "type": "Foo",
+        "codec": "bytes"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "returnValue0",
+        "type": "int32[]",
+        "codec": "bytes"
+      }
+    ]
+  },
+  {
+    "type": "function",
+    "name": "query_foo",
+    "inputs": [
+      {
+        "name": "where_clause",
+        "type": "string",
+        "codec": "bytes"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "returnValue0",
+        "type": "Foo[]",
         "codec": "bytes"
       }
     ]

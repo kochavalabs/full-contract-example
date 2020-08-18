@@ -10,9 +10,9 @@
   },
   "dependencies": {
     "core-js": "^2.6.5",
+    "mazzaroth-js": "^0.2.5",
     "vue": "^2.6.10",
-    "vue-router": "^3.0.3",
-    "mazzaroth-js": "git+ssh://git@github.com/kochavalabs/mazzaroth-js.git#develop"
+    "vue-router": "^3.0.3"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.11.0",

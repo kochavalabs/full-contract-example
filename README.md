@@ -249,6 +249,11 @@ contract. This is done in the
 [HelloWorld.vue](https://github.com/kochavalabs/full-contract-example/tree/master/browser/src/components/HelloWorld.vue)
 file. The results are then displayed.
 
+The Browser example targets a Mazzaroth Node running on localhost:8081 so for this
+example to work make sure you have performed the [Start](#Start-a-Mazzaroth-Standalone-Node)
+and [Deploy](#Deploy-a-Contract-to-the-Channel) steps and that the
+node is not stopped.
+
 To run:
 
 ```bash
