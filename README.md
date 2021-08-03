@@ -157,26 +157,17 @@ the contract to the node before you can execute any functions on it.
 # To see more info about mazzaroth-cli run.
 mazzaroth-cli help
 
-# We'll be running this example with the default private key of all 0s, the
-# account key in the nonce-lookup below is its corresponding public key.
-#
-# You can look up the current nonce for the account with the following
-# command. (Update host appropriately to be your node's ip address)
-mazzaroth-cli nonce-lookup \
-  3b6a27bcceb6a42d62a3a8d02a6f0d73653215771de243a63ac048a18b59da29 \
-  --host='http://localhost:8081'
-
 # For a readonly call that returns a JSON result you can call
 # the 'simple' function on the contract.
-# Note that no nonce is required for the readonly call.
-mazzaroth-cli readonly-call simple --host='http://localhost:8081'
+mazzaroth-cli transaction-call simple
 
-# For a non-readonly Transaction Execution make sure to set the nonce from the previous lookup
-mazzaroth-cli transaction-call args -a "one" -a "two" -a "three" --nonce 9
+# For a non-readonly Transaction Execution you will need to save the returned
+# transaction id to perform a lookup of the receipt
+mazzaroth-cli transaction-call args -a "one" -a "two" -a "three"
 
 # Provide the output transaction id from the previous command to a
 # receipt lookup to get the result of the transaction execution
-mazzaroth-cli receipt-lookup d82feb998c035949384ec058399d8d5697bcce82d7d2eeb8dd49be6f1b6f0c9b
+mazzaroth-cli receipt-lookup 57bf4efde900eba94b525a7ec997558da426893244705007e77d36f1d65d4aec
 ```
 
 This covers the basics for executing transactions against your contract.
@@ -188,8 +179,8 @@ the remainder of the tutorial we'll be using the contract-cli.
 
 Operations like those above are relatively low level. Many of the results need
 to be interpreted from base64 strings or require multiple calls to complete. For
-example to complete a 'transaction-call', you would need to look up an account
-nonce, make the call, and finally lookup the results after execution. An example
+example to complete a 'transaction-call', you would need to make the call
+and lookup the results after execution. An example
 of this being done (using node.js) can be seen in the
 [mazzaroth-js](https://github.com/kochavalabs/mazzaroth-js) repo.
 
