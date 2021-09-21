@@ -88,12 +88,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "644f9158b2f133fd50f5fb3242878846d9eb792e445c893805ff0e3824006e35"
 
 [[package]]
-name = "itoa"
-version = "0.4.6"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dc6f3ad7b9d11a0c00842ff8de1b60ee58661048eb8049ed33c73594f359d7e6"
-
-[[package]]
 name = "json"
 version = "0.12.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -122,9 +116,9 @@ dependencies = [
 
 [[package]]
 name = "mazzaroth-rs"
-version = "0.2.1"
+version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f4736b57ecff4a35e8a4a0306d09a0d3b18a1154c0921e04f867e4f68d4faa22"
+checksum = "930e21848791b676441ddaa5da44bf324acc30cc4f1438e09398b5b9f5de8446"
 dependencies = [
  "cfg-if",
  "mazzaroth-xdr",
@@ -135,23 +129,22 @@ dependencies = [
 
 [[package]]
 name = "mazzaroth-rs-derive"
-version = "0.2.1"
+version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3d5dc05a198e576d2c23d215263c40d55fc8124a04463653847cbab06096ddce"
+checksum = "7b5f63acceab16efb7c68f28aebde230fda10a3885fdce2102e1fcb6d8098e61"
 dependencies = [
+ "mazzaroth-xdr",
  "proc-macro2 0.4.30",
  "quote 0.6.13",
- "serde",
- "serde_derive",
- "serde_json",
  "syn 0.15.44",
+ "xdr-rs-serialize",
 ]
 
 [[package]]
 name = "mazzaroth-xdr"
-version = "0.2.5"
+version = "0.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c28ce33c203135c804a58971d92178f27710c623dce991af6a310a1907c84ac0"
+checksum = "184fc12c4364e8fa135ec873c3228826475fb99cc335d6749768be08d972c01c"
 dependencies = [
  "json",
  "xdr-rs-serialize",
@@ -198,40 +191,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "aa563d17ecb180e500da1cfd2b028310ac758de548efdd203e18f283af693f37"
 dependencies = [
  "proc-macro2 1.0.19",
-]
-
-[[package]]
-name = "ryu"
-version = "1.0.5"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "71d301d4193d031abdd79ff7e3dd721168a9572ef3fe51a1517aba235bd8f86e"
-
-[[package]]
-name = "serde"
-version = "1.0.114"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5317f7588f0a5078ee60ef675ef96735a1442132dc645eb1d12c018620ed8cd3"
-
-[[package]]
-name = "serde_derive"
-version = "1.0.114"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2a0be94b04690fbaed37cddffc5c134bf537c8e3329d53e982fe04c374978f8e"
-dependencies = [
- "proc-macro2 1.0.19",
- "quote 1.0.7",
- "syn 1.0.38",
-]
-
-[[package]]
-name = "serde_json"
-version = "1.0.57"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "164eacbdb13512ec2745fb09d51fd5b22b0d65ed294a1dcf7285a360c80a675c"
-dependencies = [
- "itoa",
- "ryu",
- "serde",
 ]
 
 [[package]]
@@ -343,9 +302,9 @@ checksum = "93b162580e34310e5931c4b792560108b10fd14d64915d7fff8ff00180e70092"
 
 [[package]]
 name = "xdr-rs-serialize"
-version = "0.2.3"
+version = "0.2.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "87982228d726c5bf8d0452cb5711802ccfdca742f04417cc920d022fda4c942f"
+checksum = "f4bc1e5369f228d4fb05a58a64d03cf37f317712b3355e6ee2cc8cce431537ea"
 dependencies = [
  "base64",
  "hex",
@@ -354,9 +313,9 @@ dependencies = [
 
 [[package]]
 name = "xdr-rs-serialize-derive"
-version = "0.2.3"
+version = "0.2.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "09124f8f6118981a5ade32e7d179630ff23260697cba71db1389a364809af845"
+checksum = "01de1017ed1803d107d4a7e5b5bb653b5e40fc9fa020383d42ceb1fed7c7bb5d"
 dependencies = [
  "proc-macro2 0.4.30",
  "quote 0.6.13",

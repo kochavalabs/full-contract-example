@@ -1,13 +1,13 @@
 [package]
 name = "contract"
 version = "0.1.0"
-authors = ["Kyle Bartush <kbartush@kochava.com>"]
+authors = ["Kochavalabs"]
 edition = "2018"
 
 [dependencies]
-mazzaroth-rs = "0.2.1"
-mazzaroth-rs-derive = "0.2.1"
+mazzaroth-rs = "0.4.0"
+mazzaroth-rs-derive = "0.4.0"
 xdr-rs-serialize = "0.2.3"
 xdr-rs-serialize-derive = "0.2.3"
-mazzaroth-xdr = "0.2.5"
+mazzaroth-xdr = "0.4.3"
 json = "0.12.0"
