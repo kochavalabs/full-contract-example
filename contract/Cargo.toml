@@ -5,9 +5,9 @@ authors = ["Kochavalabs"]
 edition = "2018"
 
 [dependencies]
-mazzaroth-rs = "0.4.0"
-mazzaroth-rs-derive = "0.4.0"
-xdr-rs-serialize = "0.2.3"
-xdr-rs-serialize-derive = "0.2.3"
-mazzaroth-xdr = "0.4.3"
+mazzaroth-rs = "0.8.0"
+mazzaroth-rs-derive = "0.8.0"
+xdr-rs-serialize = "0.3.0"
+xdr-rs-serialize-derive = "0.3.0"
+mazzaroth-xdr = "0.8.1"
 json = "0.12.0"

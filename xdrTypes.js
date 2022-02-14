@@ -14,7 +14,6 @@ function _interopRequireDefault(obj) {
 // Namespace start example
 
 // Start typedef section
-
 exports.ID = ID;
 function ID() {
     return new _xdrJsSerialize.default.FixedOpaque(32);
@@ -29,16 +28,13 @@ function Bar() {
         [ID(),]
     )
 }
-
 // End struct section
 
 // Start enum section
 
-
 // End enum section
 
 // Start union section
-
 
 // End union section
 
@@ -56,27 +52,22 @@ function Foo() {
         [FooStatus(),new _xdrJsSerialize.default.Str('', 256),new _xdrJsSerialize.default.Str('', 256),new _xdrJsSerialize.default.Str('', 256),]
     )
 }
-
 // End struct section
 
 // Start enum section
-
 exports.FooStatus = FooStatus;
 function FooStatus() {
     return new _xdrJsSerialize.default.Enum({
-        0: "Zero",
-        1: "One",
-        2: "Two",
-        3: "Three",
-        
+0: "Zero",
+1: "One",
+2: "Two",
+3: "Three",
     })
 }
-
 
 // End enum section
 
 // Start union section
-
 
 // End union section
 
