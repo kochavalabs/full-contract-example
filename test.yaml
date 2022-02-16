@@ -1,0 +1,125 @@
+version: 0.0.1
+name: Test Add
+type: test
+reset: true
+channel:
+  version: 0.0.1
+  id: 0000000000000000000000000000000000000000000000000000000000000000
+  owner: 3b6a27bcceb6a42d62a3a8d02a6f0d73653215771de243a63ac048a18b59da29
+  contract-file: "./contract/target/wasm32-unknown-unknown/release/contract.wasm"
+  abi-file: "./contract/target/json/ExampleContract.json"
+gateway-node:
+  address: http://localhost:6299
+tests:
+  - name: Simple Test
+    reset: true
+    transactions:
+      - tx:
+          function: "simple"
+          receipt:
+            result: "Hello World!"
+            status: 1
+  - name: Args Test
+    reset: false
+    transactions:
+      - tx:
+          function: "args"
+          args: ["a", "b", "c"]
+          receipt:
+            result: "3"
+            status: 1
+      - tx:
+          function: "args"
+          args: ["abcd", "efgh", "ijkl"]
+          receipt:
+            result: "12"
+            status: 1
+      - tx:
+          function: "args"
+          args: ["", "", ""]
+          receipt:
+            result: "0"
+            status: 1
+  - name: Complex Test
+    reset: false
+    transactions:
+      - tx:
+          function: "complex"
+          args: ["{\"status\": 0, \"one\": \"one__\", \"two\": \"two__\", \"three\": \"three__\"}", "{ \"id\": \"0000000000000000000000000000000000000000000000000000000000000000\" }"]
+          receipt:
+            result: "Zero: 0"
+            status: 1
+      - tx:
+          function: "complex"
+          args: ["{\"status\": 1, \"one\": \"one__\", \"two\": \"two__\", \"three\": \"three__\"}", "{ \"id\": \"9000000000000000000000000000000000000000000000000000000000000000\" }"]
+          receipt:
+            result: "One: 144"
+            status: 1
+      - tx:
+          function: "complex"
+          args: ["{\"status\": 2, \"one\": \"one__\", \"two\": \"two__\", \"three\": \"three__\"}", "{ \"id\": \"5000000000000000000000000000000000000000000000000000000000000000\" }"]
+          receipt:
+            result: "Two: 80"
+            status: 1
+      - tx:
+          function: "complex"
+          args: ["{\"status\": 3, \"one\": \"one__\", \"two\": \"two__\", \"three\": \"three__\"}", "{ \"id\": \"3000000000000000000000000000000000000000000000000000000000000000\" }"]
+          receipt:
+            result: "Three: 48"
+            status: 1
+  - name: Query Tests
+    reset: true
+    transactions:
+      - tx:
+          function: "setup"
+          receipt:
+            result: "true"
+            status: 1
+      - tx:
+          function: "insert_foo"
+          args: ["{\"status\": 1, \"one\": \"foo\", \"two\": \"hello\", \"three\": \"world!\"}"]
+          receipt:
+            result: "[]"
+            status: 1
+      - tx:
+          function: "insert_foo"
+          args: ["{\"status\": 2, \"one\": \"bar\", \"two\": \"hello\", \"three\": \"world!\"}"]
+          receipt:
+            result: "[]"
+            status: 1
+      - tx:
+          function: "insert_foo"
+          args: ["{\"status\": 3, \"one\": \"baz\", \"two\": \"howdy\", \"three\": \"world!\"}"]
+          receipt:
+            result: "[]"
+            status: 1
+      - tx:
+          function: "query_foo"
+          args: ["status = 0"]
+          receipt:
+            result: "[]"
+            status: 1
+      - tx:
+          function: "query_foo"
+          args: ["status = 2"]
+          receipt:
+            result: "[{\"status\":2,\"one\":\"bar\",\"two\":\"hello\",\"three\":\"world!\"}]"
+            status: 1
+      - tx:
+          function: "query_foo"
+          args: ["one = 'foo'"]
+          receipt:
+            result: "[{\"status\":1,\"one\":\"foo\",\"two\":\"hello\",\"three\":\"world!\"}]"
+            status: 1
+      - tx:
+          function: "query_foo"
+          args: ["two = 'hello'"]
+          receipt:
+            result: "[{\"status\":1,\"one\":\"foo\",\"two\":\"hello\",\"three\":\"world!\"},{\"status\":2,\"one\":\"bar\",\"two\":\"hello\",\"three\":\"world!\"}]"
+            status: 1
+      - tx:
+          function: "query_foo"
+          args: ["three = 'world!'"]
+          receipt:
+            result: "[{\"status\":1,\"one\":\"foo\",\"two\":\"hello\",\"three\":\"world!\"},{\"status\":2,\"one\":\"bar\",\"two\":\"hello\",\"three\":\"world!\"},{\"status\":3,\"one\":\"baz\",\"two\":\"howdy\",\"three\":\"world!\"}]"
+            status: 1

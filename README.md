@@ -114,7 +114,7 @@ with m8.
 Run the following commands to run the integration tests:
 
 ```Bash
-m8 channel test --test-manifest test.yaml
+m8 channel exec test --test-manifest test.yaml
 ```
 
 Visit the [m8](https://github.com/kochavalabs/m8) repository
@@ -131,7 +131,7 @@ run the following command to automatically deploy the contract
 to a node running on localhost with port 6299.
 
 ```Bash
-m8 channel deploy --deployment-manifest deploy.yaml
+m8 channel exec deployment --deployment-manifest deploy.yaml
 ```
 
 ### Manual Transaction Execution

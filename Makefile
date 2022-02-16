@@ -13,7 +13,7 @@ test:
 	cargo test --manifest-path=contract/Cargo.toml --features mazzaroth-rs/host-mock -- --test-threads=1
 
 integration:
-	m8 channel test --test-manifest test.yaml
+	m8 channel exec test --test-manifest test.yaml
 
 testall: test integration
 
