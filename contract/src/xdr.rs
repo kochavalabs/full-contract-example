@@ -1,6 +1,6 @@
 #![allow(non_snake_case)]
 #![allow(non_camel_case_types)]
-extern crate xdr_rs_serialize_derive;
+
 #[allow(unused_imports)]
 use std::io::Write;
 #[allow(unused_imports)]
@@ -19,7 +19,7 @@ use xdr_rs_serialize::ser::{
 
 extern crate json;
 
-// Namspace start example
+// Namespace start example
 
 // Start typedef section
 
@@ -28,7 +28,6 @@ pub struct ID {
     #[array(fixed = 32)]
     pub t: Vec<u8>,
 }
-
 // End typedef section
 
 // Start struct section
@@ -37,15 +36,14 @@ pub struct ID {
 pub struct Bar {
     pub id: ID,
 }
-
 // End struct section
 
 // Start union section
 
 // End union section
 
-// Namspace end example
-// Namspace start example
+// Namespace end example
+// Namespace start example
 
 // Start typedef section
 
@@ -56,17 +54,13 @@ pub struct Bar {
 #[derive(PartialEq, Clone, Default, Debug, XDROut, XDRIn)]
 pub struct Foo {
     pub status: FooStatus,
-
     #[array(var = 256)]
     pub one: String,
-
     #[array(var = 256)]
     pub two: String,
-
     #[array(var = 256)]
     pub three: String,
 }
-
 // End struct section
 
 #[derive(PartialEq, Clone, Debug, XDROut, XDRIn)]
@@ -86,4 +80,4 @@ impl Default for FooStatus {
 
 // End union section
 
-// Namspace end example
+// Namespace end example

@@ -33,16 +33,6 @@ Then run the xdr-codegen command to generate the xdr rust file:
 xdr-codegen ./xdr/*.x --language rust | rustfmt > contract/src/xdr.rs
 ```
 
-We'll have to remove the [macro_use] section from the generated rust code.
-Since the xdr.rs file is pulled into the contract as a module it cannot
-contain the macro use line which is already present for the `xdr_rs_serialize_derive`
-extern crate in main.rs.
-You can run this command or make the changes manually.
-
-```Bash
-sed -i '' -e '/macro_use/d' contract/src/xdr.rs
-```
-
 If you want to use the Mazzaroth-CLI or JavaScript to interact with
 the contract you will also need the JavaScript generated file.  This
 can be generated with the command below.
@@ -91,36 +81,13 @@ file that is important is the contract wasm output located at
 contract/target/wasm32-unknown-unknown/release/contract.wasm. This is what will
 be uploaded to our Mazzaroth node to be executed against.
 
-## Writing Integration Tests
-
-Although some of a contract's logic can be tested using standard rust unit tests,
-integration tests are necessary for testing host functions and other higher level
-logic. [Mazzaroth-it](https://github.com/kochavalabs/mazzaroth-it) is a relatively
-straight forward node script that helps by automating some of the repetitive
-tasks related with running integration tests.
-
-Example integration tests have been added to the `/tests` directory and can be run
-with Mazzaroth-it.
-
-Run the following commands to install and run the integration tests:
-
-```Bash
-npm install -g mazzaroth-it
-
-
-mazzaroth-it test --config tests
-```
-
-Visit the [Mazzaroth-it](https://github.com/kochavalabs/mazzaroth-it) repository
-for more details on how to setup test config files.
-
-## Install The Mazzaroth CLI
+## Install m8
 
 Deploying your built contract to a Mazzaroth node will require the mazzaroth
-cli. You can install the Mazzaroth-CLI with npm.
+cli tool `m8`. You can install m8 with from the github repo:
 
 ```bash
-npm install -g mazzaroth-cli
+go install github.com/kochavalabs/m8@latest
 ```
 
 ## Start a Mazzaroth Standalone Node
@@ -131,21 +98,40 @@ To run a standalone node with port 8081 exposed for http access
 use the following command:
 
 ```Bash
-docker run -p 8081:8081 kochavalabs/mazzaroth start standalone
+docker run -p 6299:6299 kochavalabs/mazzaroth start standalone
 ```
+
+## Writing Integration Tests
+
+Although some of a contract's logic can be tested using standard rust unit tests,
+integration tests are necessary for testing host functions and other higher level
+logic. [m8](https://github.com/kochavalabs/m8) also has the ability to execute an
+integration test config against a running Mazzaroth node.
+
+Example integration tests have been added to the `/tests` directory and can be run
+with m8.
+
+Run the following commands to run the integration tests:
+
+```Bash
+m8 channel exec test --test-manifest test.yaml
+```
+
+Visit the [m8](https://github.com/kochavalabs/m8) repository
+for more details on how to setup test config files.
 
 ## Deploy a Contract to the Channel
 
 There are a few steps required to deploy a contract to a new
 Mazzaroth node.  To help with these steps we have included a
-deploy command that takes a deploy.json config.
+deploy command that takes a deploy.yaml config.
 
-An example deploy.json is included in this repository.  Simply
+An example deploy.yaml is included in this repository.  Simply
 run the following command to automatically deploy the contract
-to a node running on localhost with port 8081.
+to a node running on localhost with port 6299.
 
 ```Bash
-mazzaroth-cli deploy deploy.json
+m8 channel exec deployment --deployment-manifest deploy.yaml
 ```
 
 ### Manual Transaction Execution
@@ -174,61 +160,6 @@ This covers the basics for executing transactions against your contract.
 You can read more about the Mazzaroth CLI in its
 [repo](https://github.com/kochavalabs/mazzaroth-cli). For
 the remainder of the tutorial we'll be using the contract-cli.
-
-## Contract CLI
-
-Operations like those above are relatively low level. Many of the results need
-to be interpreted from base64 strings or require multiple calls to complete. For
-example to complete a 'transaction-call', you would need to make the call
-and lookup the results after execution. An example
-of this being done (using node.js) can be seen in the
-[mazzaroth-js](https://github.com/kochavalabs/mazzaroth-js) repo.
-
-This is cumbersome, so we've provided a further abstraction called the contract
-client. This wraps the low level operations and gives the user access to their
-contract through an rpc-like interface. We'll walk through how to drop into the
-contract clients interactive CLI for our example contract.
-
-```bash
-# The contract client requires the ABI json produced from our contract to run
-# properly. Which will drop you into an interactive CLI.
-mazzaroth-cli contract-cli contract/target/json/ExampleContract.json -x xdrTypes.js
-Mazz>
-
-# You can see the currently available functions by typing abi
-Mazz> abi
-
-Functions:
-  setup() -> bool
-  args(string, string, string) -> uint32
-  complex(Foo, Bar) -> string
-  insert_foo(Foo) -> int32[]
-  query_foo(string) -> Foo[]
-
-ReadOnly Functions:
-  simple() -> string
-
-# And call them
-Mazz> simple()
-Hello World!
-Mazz> args("one", "two", "three")
-11
-```
-
-You will notice that some functions take custom objects. If you did not provide
-the `-x xdrTypes.js` argument in the contract-cli command the
-contract CLI will not know how to interpret our custom XDR types, Foo and Bar.
-If you did provide the javascript XDR file then you should be able to call those
-functions by passing in a JSON version of the objects.
-
-```bash
-Mazz> complex('{"status": 1, "one": "one__", "two": "two__", "three": "three__"}', '{ "id": "9000000000000000000000000000000000000000000000000000000000000000" }')
-One: 144
-
-# Alternatively, you can give files as arguments.
-Mazz> complex(f:"foo.json", f:"bar.json")
-One: 144
-```
 
 ## Run The Browser Example
 

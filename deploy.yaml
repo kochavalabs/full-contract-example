@@ -1,0 +1,59 @@
+version: 0.0.1
+type: deployment
+channel:
+  version: 0.0.1
+  id: 0000000000000000000000000000000000000000000000000000000000000000
+  owner: 3b6a27bcceb6a42d62a3a8d02a6f0d73653215771de243a63ac048a18b59da29
+  contract-file: "./contract/target/wasm32-unknown-unknown/release/contract.wasm"
+  abi-file: "./contract/target/json/ExampleContract.json"
+gateway-node:
+  address: http://localhost:6299
+deploy:
+  name: example-contract
+  transactions:
+    - tx:
+        function: "setup"
+    - tx:
+        function: "complex"
+        args: ['{
+                "status": 1,
+                "one": "First String",
+                "two": "Second String",
+                "three": "Three String"
+            }',
+            '{
+                "id": "1111111111111111111111111111111111111111111111111111111111111111"
+            }']
+    - tx:
+        function: "insert_foo"
+        args: ['{
+                "status": 1,
+                "one": "One",
+                "two": "Two",
+                "three": "Thre"
+            }']
+    - tx:
+        function: "insert_foo"
+        args: ['{
+                "status": 2,
+                "one": "Uno",
+                "two": "Dos",
+                "three": "Tres"
+            }']
+    - tx:
+        function: "insert_foo"
+        args: ['{
+                "status": 1,
+                "one": "yi",
+                "two": "er",
+                "three": "san"
+            }']
+    - tx:
+        function: "insert_foo"
+        args: ['{
+                "status": 3,
+                "one": "Un",
+                "two": "Deux",
+                "three": "Trois"
+            }']
+
