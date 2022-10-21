@@ -30,7 +30,7 @@ deploy:
                 "status": 1,
                 "one": "One",
                 "two": "Two",
-                "three": "Thre"
+                "three": "Three"
             }']
     - tx:
         function: "insert_foo"

@@ -7,13 +7,14 @@ extern crate xdr_rs_serialize_derive;
 pub mod xdr;
 
 use xdr_rs_serialize::ser::XDROut;
-
+ 
 use mazzaroth_rs::external::{sql, transaction};
 use mazzaroth_rs::ContractInterface;
 use mazzaroth_rs_derive::mazzaroth_abi;
 use xdr::*;
 
-pub fn main() {
+#[no_mangle]
+pub fn entry() {
     std::panic::set_hook(Box::new(mazzaroth_rs::external::errors::hook));
 
     // Creates a new instance of the ABI generated around the Contract
@@ -51,7 +52,7 @@ impl ExampleContract for Example {
         let tables = vec!["foo", "bar"];
         for table in &tables {
             match sql::exec(format!("CREATE TABLE {};", table)) {
-                Some(_) => panic!(format!("Error creating table {}", table)),
+                Some(_) => panic!("Error creating table {}", table),
                 None => {}
             };
         }
